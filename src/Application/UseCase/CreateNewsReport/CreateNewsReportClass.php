@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Application\UseCase\CreateNewsReport;
 
 use App\Domain\Repository\NewsRepositoryInterface;
+use App\Domain\Service\ReportStorageInterface;
 
 readonly class CreateNewsReportClass
 {
     public function __construct(
-        private NewsRepositoryInterface $newsRepository
+        private NewsRepositoryInterface $newsRepository,
+        private ReportStorageInterface $reportStorage
     ) {
     }
 
@@ -24,22 +26,6 @@ readonly class CreateNewsReportClass
             $arNews[$itemId]['DATA'] = $item->getData();
         }
 
-        $this->saveMetadataToCache($arNews);
-    }
-
-    private function saveMetadataToCache(array $data): void
-    {
-        $cacheDir = __DIR__ . '/../../../var/cache/url_metadata';
-        if (!is_dir($cacheDir)) {
-            mkdir($cacheDir, 0777, true);
-        }
-
-        $cacheFile = $cacheDir . '/' . md5((string)time()) . '.json';
-        $jsonData = json_encode([
-            'data' => $data,
-            'cached_at' => time()
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
-        file_put_contents($cacheFile, $jsonData);
+        $this->reportStorage->save($arNews);
     }
 }
