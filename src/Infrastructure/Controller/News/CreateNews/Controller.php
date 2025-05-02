@@ -17,9 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 readonly class Controller
 {
     public function __construct(
-        private CreateNewsUseCase $createNewsUseCase,
-        private GetNewsUseCase $getNewsUseCase,
-        private CreateNewsReportClass $createNewsReportClass,
+        private CreateNewsUseCase $createNewsUseCase
     )
     {
 
@@ -27,21 +25,6 @@ readonly class Controller
     #[Route(path: '/news', name: 'news.create', methods: ['POST'])]
     public function __invoke(#[MapRequestPayload] CreateNewsRequest $createNewsRequest): JsonResponse
     {
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-
-        $news = $this->getNewsUseCase->__invoke();
-        foreach ($news as $item) {
-            $itemId = $item->getNewsId();
-            $arNews[$itemId]['TITLE'] = $item->getTitle();
-            $arNews[$itemId]['URL'] = $item->getUrl();
-            $arNews[$itemId]['DATA'] = $item->getData();
-        }
-
-        $this->createNewsReportClass->__invoke();
-
-        return new JsonResponse($arNews);
+        return new JsonResponse($this->createNewsUseCase->__invoke($createNewsRequest));
     }
 }
