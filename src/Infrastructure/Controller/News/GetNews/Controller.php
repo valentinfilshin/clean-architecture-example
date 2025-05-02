@@ -15,9 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 readonly class Controller
 {
     public function __construct(
-        private CreateNewsUseCase $createNewsUseCase,
-        private GetNewsUseCase $getNewsUseCase,
-        private CreateNewsReportClass $createNewsReportClass,
+        private GetNewsUseCase $getNewsUseCase
     )
     {
 
@@ -25,12 +23,6 @@ readonly class Controller
     #[Route(path: '/news', name: 'news.get', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
-        // TODO ...
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-        $this->createNewsUseCase->__invoke($createNewsRequest);
-
         $news = $this->getNewsUseCase->__invoke();
         foreach ($news as $item) {
             $itemId = $item->getNewsId();
@@ -39,7 +31,6 @@ readonly class Controller
             $arNews[$itemId]['DATA'] = $item->getData();
         }
 
-        $this->createNewsReportClass->__invoke();
         return new JsonResponse($arNews);
     }
 }
