@@ -6,7 +6,7 @@ namespace App\Application\UseCase\CreateNewsReport;
 
 use App\Domain\Repository\NewsRepositoryInterface;
 
-class CreateNewsReportClass
+readonly class CreateNewsReportClass
 {
     public function __construct(
         private NewsRepositoryInterface $newsRepository
