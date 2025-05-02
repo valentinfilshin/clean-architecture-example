@@ -16,7 +16,7 @@ class FileReportStorage implements ReportStorageInterface
 
         $cacheFile = $cacheDir . '/' . md5((string)time()) . '.json';
         $jsonData = json_encode([
-            'data' => $data,
+            'data' => $news,
             'cached_at' => time()
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
