@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\News;
@@ -8,23 +10,28 @@ use App\Domain\Repository\NewsRepositoryInterface;
 class MemoryNewsRepository implements NewsRepositoryInterface
 {
 
-    public function save(News $news): void
+    private array $news = [];
+    private int $newsId = 1;
+
+    public function save(News $news): int
     {
-        // TODO: Implement save() method.
+        $news->setNewsId($this->newsId);
+        $this->news[] = $news;
+        return $this->newsId++;
     }
 
     public function delete(int $newsId): void
     {
-        // TODO: Implement delete() method.
+        unset($this->news[$newsId]);
     }
 
     public function findById(int $newsId): ?News
     {
-        // TODO: Implement findById() method.
+        return $this->news[$newsId] ?? null;
     }
 
     public function findAll(): iterable
     {
-        // TODO: Implement findAll() method.
+        return $this->news;
     }
 }
