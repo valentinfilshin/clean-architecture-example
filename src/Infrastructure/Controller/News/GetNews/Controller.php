@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller\News\GetNews;
 
-use App\Application\UseCase\CreateNews\CreateNewsUseCase;
-use App\Application\UseCase\CreateNewsReport\CreateNewsReportClass;
 use App\Application\UseCase\GetNews\GetNewsUseCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;

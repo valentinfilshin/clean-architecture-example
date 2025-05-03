@@ -36,15 +36,21 @@ class FileNewsRepository implements NewsRepositoryInterface
         
         return $newsId;
     }
-    
-    public function delete(int $newsId): void
+
+    public function findByIds(array $newsIds): iterable
     {
-        $filePath = $this->getFilePath($newsId);
-        if (file_exists($filePath)) {
-            unlink($filePath);
+        $result = [];
+
+        foreach ($newsIds as $newsId) {
+            $news = $this->findById($newsId);
+            if ($news !== null) {
+                $result[] = $news;
+            }
         }
+
+        return $result;
     }
-    
+
     public function findById(int $newsId): ?News
     {
         $filePath = $this->getFilePath($newsId);

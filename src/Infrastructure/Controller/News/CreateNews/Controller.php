@@ -6,8 +6,6 @@ namespace App\Infrastructure\Controller\News\CreateNews;
 
 use App\Application\UseCase\CreateNews\CreateNewsUseCase;
 use App\Application\UseCase\CreateNews\Input\CreateNewsRequest;
-use App\Application\UseCase\CreateNewsReport\CreateNewsReportClass;
-use App\Application\UseCase\GetNews\GetNewsUseCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
