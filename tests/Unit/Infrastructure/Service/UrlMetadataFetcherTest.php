@@ -19,6 +19,6 @@ class UrlMetadataFetcherTest extends TestCase
         $result = $urlMetadataFetcher->fetchTitle($url);
 
         // Assert
-        $this->assertEquals($result, $needle, $message = 'Title не совпадает с желаемым');
+        $this->assertEquals($result, $needle, $message = 'Title не совпадает с ожидаемым');
     }
 }
