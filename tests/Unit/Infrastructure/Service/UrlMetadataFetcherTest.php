@@ -19,6 +19,31 @@ class UrlMetadataFetcherTest extends TestCase
         $result = $urlMetadataFetcher->fetchTitle($url);
 
         // Assert
-        $this->assertEquals($result, $needle, $message = 'Title не совпадает с ожидаемым');
+        $this->assertEquals($needle, $result, $message = 'Title не совпадает с ожидаемым');
+    }
+
+    public function testFetchTitleEmptyString(): void
+    {
+        // Arrange
+        $url = '';
+        $urlMetadataFetcher = new UrlMetadataFetcher();
+
+        // Act
+        $result = $urlMetadataFetcher->fetchTitle($url);
+
+        // Assert
+        $this->assertEquals(null, $result, $message = 'Значение не пустое');
+    }
+    public function testFetchTitleWrongUrl(): void
+    {
+        // Arrange
+        $url = 'А я не URL';
+        $urlMetadataFetcher = new UrlMetadataFetcher();
+
+        // Act
+        $result = $urlMetadataFetcher->fetchTitle($url);
+
+        // Assert
+        $this->assertEquals(null, $result, $message = 'Значение не пустое');
     }
 }
