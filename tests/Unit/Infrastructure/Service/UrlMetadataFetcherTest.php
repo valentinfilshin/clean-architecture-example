@@ -34,6 +34,7 @@ class UrlMetadataFetcherTest extends TestCase
         // Assert
         $this->assertEquals(null, $result, $message = 'Значение не пустое');
     }
+
     public function testFetchTitleWrongUrl(): void
     {
         // Arrange
