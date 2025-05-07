@@ -8,6 +8,7 @@ use App\Domain\Entity\News;
 
 interface NewsRepositoryInterface
 {
+    // TODO void?
     public function save(News $news): int;
 
     public function findById(int $newsId): ?News;
