@@ -24,6 +24,8 @@ readonly class CreateNewsUseCase
 
     public function __invoke(CreateNewsRequest $request): CreateNewsResponse
     {
+        // Данную логику делать в фабрике или все таки тут правильнее?
+
         // Создать URL
         $url = $this->urlFactory->create($request->url);
 
