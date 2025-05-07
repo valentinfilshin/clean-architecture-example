@@ -23,6 +23,6 @@ readonly class Controller
     #[Route(path: '/news', name: 'news.create', methods: ['POST'])]
     public function __invoke(#[MapRequestPayload] CreateNewsRequest $createNewsRequest): JsonResponse
     {
-        return new JsonResponse($this->createNewsUseCase->__invoke($createNewsRequest));
+        return new JsonResponse(($this->createNewsUseCase)($createNewsRequest));
     }
 }
