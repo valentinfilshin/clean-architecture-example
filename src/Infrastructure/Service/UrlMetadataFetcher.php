@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Infrastructure\Service;
 
 use App\Domain\Service\UrlMetadataFetcherInterface;
+use App\Domain\ValueObject\Title;
 
 class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 {
-    public function fetchTitle(string $url): ?string
+    public function fetchTitle(string $url): ?Title
     {
         // Используем curl_init() с проверкой на null
         $curl = curl_init($url) ?: throw new \RuntimeException('Failed to initialize cURL');
@@ -42,7 +43,7 @@ class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 
             $titleTags = $doc->getElementsByTagName('title');
 
-            return $titleTags->count() > 0 ? trim($titleTags->item(0)->textContent) : null;
+            return $titleTags->count() > 0 ? new Title(trim($titleTags->item(0)->textContent)) : null;
         } finally {
             // Гарантируем закрытие соединения cURL
             curl_close($curl);

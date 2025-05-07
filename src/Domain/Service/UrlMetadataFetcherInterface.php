@@ -8,5 +8,5 @@ use App\Domain\ValueObject\Title;
 
 interface UrlMetadataFetcherInterface
 {
-    public function fetchTitle(string $url): Title;
+    public function fetchTitle(string $url): ?Title;
 }
