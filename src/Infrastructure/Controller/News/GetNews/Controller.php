@@ -16,21 +16,12 @@ readonly class Controller
         private GetNewsUseCase $getNewsUseCase
     )
     {
-
     }
+
     #[Route(path: '/news', name: 'news.get', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
         $news = ($this->getNewsUseCase)();
-
-        // TODO remake
-        foreach ($news as $item) {
-            $itemId = $item->getNewsId();
-            $arNews[$itemId]['TITLE'] = $item->getTitle();
-            $arNews[$itemId]['URL'] = $item->getUrl();
-            $arNews[$itemId]['DATA'] = $item->getData();
-        }
-
         return new JsonResponse($news);
     }
 }
