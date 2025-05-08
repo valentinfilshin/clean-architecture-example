@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\CreateNewsReport;
 
+use App\Application\UseCase\CreateNewsReport\Output\CreateNewsReportDTO;
 use App\Domain\Repository\NewsRepositoryInterface;
 use App\Domain\Service\ReportStorageInterface;
 
@@ -17,15 +18,16 @@ readonly class CreateNewsReportUseCase
 
     public function __invoke(): void
     {
+        $newsList = [];
         $news = $this->newsRepository->findAll();
 
         foreach ($news as $item) {
-            $itemId = $item->getNewsId();
-            $arNews[$itemId]['TITLE'] = $item->getTitle();
-            $arNews[$itemId]['URL'] = $item->getUrl();
-            $arNews[$itemId]['DATA'] = $item->getData();
+            $newsList[] = new CreateNewsReportDTO(
+                $item->getUrl()->url,
+                $item->getTitle()->title
+            );
         }
 
-        $this->reportStorage->save($arNews);
+        $this->reportStorage->save($newsList);
     }
 }

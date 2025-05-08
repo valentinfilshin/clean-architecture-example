@@ -16,9 +16,9 @@ readonly class Controller
         private CreateNewsReportUseCase $createNewsReportUseCase
     )
     {
-
     }
-    #[Route(path: '/news', name: 'news.get', methods: ['GET'])]
+
+    #[Route(path: '/news/report', name: 'news.report', methods: ['GET'])]
     public function __invoke(): JsonResponse
     {
         ($this->createNewsReportUseCase)();
