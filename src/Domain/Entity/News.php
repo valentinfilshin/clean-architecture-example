@@ -15,7 +15,7 @@ class News
     public function __construct(
         private readonly Title $title,
         private readonly Url $url,
-        private readonly DateTimeImmutable $data
+        private readonly DateTimeImmutable $date
     ) {
     }
 
@@ -38,8 +38,8 @@ class News
         return $this->url;
     }
 
-    public function getData(): DateTimeImmutable
+    public function getDate(): DateTimeImmutable
     {
-        return $this->data;
+        return $this->date;
     }
 }
