@@ -6,7 +6,6 @@ use App\Domain\Service\ReportStorageInterface;
 
 class FileReportStorage implements ReportStorageInterface
 {
-
     public function save(array $news): void
     {
         $cacheDir = __DIR__ . '/../../../var/cache/url_metadata';

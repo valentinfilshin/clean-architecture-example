@@ -14,8 +14,7 @@ readonly class Controller
 {
     public function __construct(
         private GetNewsUseCase $getNewsUseCase
-    )
-    {
+    ) {
     }
 
     #[Route(path: '/news', name: 'news.get', methods: ['GET'])]

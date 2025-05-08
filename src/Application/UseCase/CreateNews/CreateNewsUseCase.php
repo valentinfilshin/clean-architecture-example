@@ -18,8 +18,7 @@ readonly class CreateNewsUseCase
         private UrlFactoryInterface $urlFactory,
         private NewsRepositoryInterface $newsRepository,
         private UrlMetadataFetcherInterface $urlMetadataFetcher
-    )
-    {
+    ) {
     }
 
     public function __invoke(CreateNewsRequest $request): CreateNewsResponse

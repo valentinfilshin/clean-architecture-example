@@ -16,9 +16,7 @@ readonly class Controller
 {
     public function __construct(
         private CreateNewsUseCase $createNewsUseCase
-    )
-    {
-
+    ) {
     }
     #[Route(path: '/news', name: 'news.create', methods: ['POST'])]
     public function __invoke(#[MapRequestPayload] CreateNewsRequest $createNewsRequest): JsonResponse

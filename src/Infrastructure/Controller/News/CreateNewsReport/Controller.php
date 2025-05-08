@@ -14,8 +14,7 @@ readonly class Controller
 {
     public function __construct(
         private CreateNewsReportUseCase $createNewsReportUseCase
-    )
-    {
+    ) {
     }
 
     #[Route(path: '/news/report', name: 'news.report', methods: ['GET'])]

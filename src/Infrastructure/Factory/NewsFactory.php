@@ -8,6 +8,7 @@ use App\Domain\Entity\News;
 use App\Domain\Factory\NewsFactoryInterface;
 use App\Domain\ValueObject\Title;
 use App\Domain\ValueObject\Url;
+use DateTimeImmutable;
 
 class NewsFactory implements NewsFactoryInterface
 {
@@ -16,7 +17,7 @@ class NewsFactory implements NewsFactoryInterface
         return new News(
             $title,
             $url,
-            new \DateTimeImmutable()
+            new DateTimeImmutable()
         );
     }
 }

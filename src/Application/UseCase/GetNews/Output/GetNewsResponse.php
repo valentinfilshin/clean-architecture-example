@@ -11,7 +11,6 @@ readonly class GetNewsResponse
         public string $date,
         public string $url,
         public string $title
-    )
-    {
+    ) {
     }
 }

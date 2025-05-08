@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\ValueObject;
 
+use InvalidArgumentException;
+
 readonly class Title
 {
     public function __construct(
@@ -16,17 +18,17 @@ readonly class Title
     {
         // Проверка на пустое значение
         if (empty(trim($title))) {
-            throw new \InvalidArgumentException('Заголовок не может быть пустым');
+            throw new InvalidArgumentException('Заголовок не может быть пустым');
         }
 
         // Проверка минимальной длины
         if (mb_strlen($title) < 3) {
-            throw new \InvalidArgumentException('Заголовок должен содержать не менее 3 символов');
+            throw new InvalidArgumentException('Заголовок должен содержать не менее 3 символов');
         }
 
         // Проверка максимальной длины
         if (mb_strlen($title) > 255) {
-            throw new \InvalidArgumentException('Заголовок не должен превышать 255 символов');
+            throw new InvalidArgumentException('Заголовок не должен превышать 255 символов');
         }
     }
 }
