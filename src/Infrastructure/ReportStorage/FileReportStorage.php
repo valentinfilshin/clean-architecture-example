@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Service;
+namespace App\Infrastructure\ReportStorage;
 
 use App\Application\ReportStorage\ReportStorageInterface;
 

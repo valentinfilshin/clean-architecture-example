@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Service;
+namespace App\Infrastructure\UrlMetadataFetcher;
 
 use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
-use App\Domain\ValueObject\Title;
 
 class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 {

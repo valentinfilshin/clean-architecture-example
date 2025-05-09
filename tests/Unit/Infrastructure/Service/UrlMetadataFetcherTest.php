@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Infrastructure\Service;
 
-use App\Infrastructure\Service\UrlMetadataFetcher;
+use App\Infrastructure\UrlMetadataFetcher\UrlMetadataFetcher;
 use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 
