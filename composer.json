@@ -73,6 +73,7 @@
     }
   },
   "require-dev": {
+    "codeception/codeception": "^5.3",
     "phpunit/phpunit": "^12.1"
   }
 }

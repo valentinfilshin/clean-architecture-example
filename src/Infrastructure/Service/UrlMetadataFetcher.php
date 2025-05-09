@@ -9,6 +9,7 @@ use App\Domain\ValueObject\Title;
 
 class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 {
+    // TODO переделать
     public function fetchTitle(string $url): ?string
     {
         // Используем curl_init() с проверкой на null
@@ -44,7 +45,7 @@ class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 
             $titleTags = $doc->getElementsByTagName('title');
 
-            return $titleTags->count() > 0 ? new Title(trim($titleTags->item(0)->textContent)) : null;
+            return $titleTags->count() > 0 ? (trim($titleTags->item(0)->textContent)) : null;
         } finally {
             // Гарантируем закрытие соединения cURL
             curl_close($curl);

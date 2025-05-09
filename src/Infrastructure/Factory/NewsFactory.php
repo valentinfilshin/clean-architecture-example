@@ -12,11 +12,11 @@ use DateTimeImmutable;
 
 class NewsFactory implements NewsFactoryInterface
 {
-    public function create(Url $url, Title $title): News
+    public function create(string $url, string $title): News
     {
         return new News(
-            $title,
-            $url,
+            new Title($title),
+            new Url($url),
             new DateTimeImmutable()
         );
     }

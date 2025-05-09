@@ -21,14 +21,6 @@ readonly class CreateNewsUseCase
 
     public function __invoke(CreateNewsRequest $request): CreateNewsResponse
     {
-        // Данную логику делать в фабрике или все таки тут правильнее?
-
-        // URL to DTO
-        // Fabric либо VO либо можно строки VO
-        // TODO DTO для metaDataFetcherRequest и переделать данный слой
-        // ...
-
-        // TODO Request/response
         // Получить Title
         $title  = $this->urlMetadataFetcher->fetchTitle($request->url);
 

@@ -28,14 +28,12 @@ class FileNewsRepository implements NewsRepositoryInterface
     public function save(News $news): void
     {
         $newsId = $news->getNewsId() ?? $this->getNextId();
-        $news->setNewsId($newsId);
 
         $filePath = $this->getFilePath($newsId);
         file_put_contents($filePath, serialize($news));
 
         // Присваиваем объекту ID
         $reflectionProperty = new \ReflectionProperty(News::class, 'newsId');
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($news, $newsId);
     }
 
