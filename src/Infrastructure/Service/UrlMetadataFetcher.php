@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\UrlMetadataFetcherInterface;
+use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
 use App\Domain\ValueObject\Title;
 
 class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 {
-    public function fetchTitle(string $url): ?Title
+    public function fetchTitle(string $url): ?string
     {
         // Используем curl_init() с проверкой на null
         $curl = curl_init($url) ?: throw new \RuntimeException('Failed to initialize cURL');
@@ -18,7 +18,8 @@ class UrlMetadataFetcher implements UrlMetadataFetcherInterface
         curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+            Chrome/91.0.4472.124 Safari/537.36',
         ]);
 
         try {

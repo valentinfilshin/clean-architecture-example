@@ -10,5 +10,5 @@ use App\Domain\ValueObject\Url;
 
 interface NewsFactoryInterface
 {
-    public function create(Url $url, Title $title): News;
+    public function create(string $url, string $title): News;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Service;
 
-use App\Domain\Service\ReportStorageInterface;
+use App\Application\ReportStorage\ReportStorageInterface;
 
 class FileReportStorage implements ReportStorageInterface
 {
@@ -13,6 +13,7 @@ class FileReportStorage implements ReportStorageInterface
             mkdir($cacheDir, 0777, true);
         }
 
+        // TODO uiid, не завязывать на time и microtime, а то вдруг одновременно будет обращение
         $cacheFile = $cacheDir . '/' . md5((string)time()) . '.json';
         $jsonData = json_encode([
             'data' => $news,

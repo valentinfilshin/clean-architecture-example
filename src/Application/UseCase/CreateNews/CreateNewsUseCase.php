@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\CreateNews;
 
+use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
 use App\Application\UseCase\CreateNews\Input\CreateNewsRequest;
 use App\Application\UseCase\CreateNews\Output\CreateNewsResponse;
 use App\Domain\Factory\NewsFactoryInterface;
-use App\Domain\Factory\UrlFactoryInterface;
 use App\Domain\Repository\NewsRepositoryInterface;
-use App\Domain\Service\UrlMetadataFetcherInterface;
 
 readonly class CreateNewsUseCase
 {
     public function __construct(
         private NewsFactoryInterface $newsFactory,
-        private UrlFactoryInterface $urlFactory,
         private NewsRepositoryInterface $newsRepository,
         private UrlMetadataFetcherInterface $urlMetadataFetcher
     ) {
@@ -25,14 +23,17 @@ readonly class CreateNewsUseCase
     {
         // Данную логику делать в фабрике или все таки тут правильнее?
 
-        // Создать URL
-        $url = $this->urlFactory->create($request->url);
+        // URL to DTO
+        // Fabric либо VO либо можно строки VO
+        // TODO DTO для metaDataFetcherRequest и переделать данный слой
+        // ...
 
+        // TODO Request/response
         // Получить Title
-        $title  = $this->urlMetadataFetcher->fetchTitle($url->url);
+        $title  = $this->urlMetadataFetcher->fetchTitle($request->url);
 
         // Создать новость
-        $news = $this->newsFactory->create($url, $title);
+        $news = $this->newsFactory->create($request->url, $title);
 
         // Сохранить новость
         $this->newsRepository->save($news);

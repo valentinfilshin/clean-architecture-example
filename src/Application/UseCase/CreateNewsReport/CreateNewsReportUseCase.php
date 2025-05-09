@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\CreateNewsReport;
 
+use App\Application\ReportStorage\ReportStorageInterface;
 use App\Application\UseCase\CreateNewsReport\Output\CreateNewsReportDTO;
 use App\Domain\Repository\NewsRepositoryInterface;
-use App\Domain\Service\ReportStorageInterface;
 
 readonly class CreateNewsReportUseCase
 {
@@ -18,6 +18,7 @@ readonly class CreateNewsReportUseCase
 
     public function __invoke(): void
     {
+        // TODO принять список ID
         $newsList = [];
         $news = $this->newsRepository->findAll();
 

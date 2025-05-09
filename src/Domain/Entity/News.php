@@ -19,10 +19,6 @@ class News
     ) {
     }
 
-    public function setNewsId(int $newsId): void
-    {
-        $this->newsId = $newsId;
-    }
     public function getNewsId(): ?int
     {
         return $this->newsId;
