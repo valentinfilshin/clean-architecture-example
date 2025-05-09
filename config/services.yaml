@@ -23,5 +23,9 @@ services:
         arguments:
             $storageDirectory: '%kernel.project_dir%/var/storage/news'
 
+    App\Infrastructure\ReportStorage\FileReportStorage:
+        arguments:
+            $saveDir: '%kernel.project_dir%/public/reports'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -29,6 +29,7 @@ readonly class CreateNewsReportUseCase
             );
         }
 
+        // TODO return DTO
         $this->reportStorage->save($newsList);
     }
 }

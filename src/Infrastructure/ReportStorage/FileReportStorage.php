@@ -1,26 +1,41 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\ReportStorage;
 
 use App\Application\ReportStorage\ReportStorageInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Uid\Uuid;
 
-class FileReportStorage implements ReportStorageInterface
+readonly class FileReportStorage implements ReportStorageInterface
 {
-    // TODO переделать
-    public function save(array $news): void
+    public function __construct(
+        private Filesystem $filesystem,
+        private string $saveDir
+    ) {
+    }
+
+    public function save(array $news): string
     {
-        $cacheDir = __DIR__ . '/../../../var/cache/url_metadata';
-        if (!is_dir($cacheDir)) {
-            mkdir($cacheDir, 0777, true);
+        // Создаем директорию, если она не существует
+        if (!$this->filesystem->exists($this->saveDir)) {
+            $this->filesystem->mkdir($this->saveDir, 0777);
         }
 
-        // TODO uiid, не завязывать на time и microtime, а то вдруг одновременно будет обращение
-        $cacheFile = $cacheDir . '/' . md5((string)time()) . '.json';
+        // Используем статический метод Uuid::v4() для генерации UUID
+        $fileName = Uuid::v4()->toRfc4122() . '.json';
+        $cacheFile = $this->saveDir . '/' . $fileName;
+
         $jsonData = json_encode([
             'data' => $news,
             'cached_at' => time()
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
-        file_put_contents($cacheFile, $jsonData);
+        // Записываем данные в файл
+        $this->filesystem->dumpFile($cacheFile, $jsonData);
+
+        // Возвращаем путь к сохраненному файлу
+        return $cacheFile;
     }
 }

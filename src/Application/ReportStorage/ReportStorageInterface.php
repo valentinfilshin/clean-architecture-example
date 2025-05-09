@@ -6,5 +6,5 @@ namespace App\Application\ReportStorage;
 
 interface ReportStorageInterface
 {
-    public function save(array $news): void;
+    public function save(array $news): string;
 }
