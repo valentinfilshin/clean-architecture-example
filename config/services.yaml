@@ -25,7 +25,8 @@ services:
 
     App\Infrastructure\ReportStorage\FileReportStorage:
         arguments:
-            $saveDir: '%kernel.project_dir%/public/reports'
+            $baseDir: '%kernel.project_dir%/public'
+            $saveDir: '/reports'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -12,20 +12,26 @@ readonly class FileReportStorage implements ReportStorageInterface
 {
     public function __construct(
         private Filesystem $filesystem,
-        private string $saveDir
+        private string $baseDir,
+        private string $saveDir,
     ) {
     }
 
     public function save(array $news): string
     {
         // Создаем директорию, если она не существует
-        if (!$this->filesystem->exists($this->saveDir)) {
-            $this->filesystem->mkdir($this->saveDir, 0777);
+        if (!$this->filesystem->exists($this->baseDir)) {
+            $this->filesystem->mkdir($this->baseDir, 0777);
+        }
+
+        if (!$this->filesystem->exists($this->baseDir . $this->saveDir)) {
+            $this->filesystem->mkdir($this->baseDir . $this->saveDir, 0777);
         }
 
         // Используем статический метод Uuid::v4() для генерации UUID
         $fileName = Uuid::v4()->toRfc4122() . '.json';
-        $cacheFile = $this->saveDir . '/' . $fileName;
+        $fullFilePath = $this->baseDir . $this->saveDir . '/' . $fileName;
+        $publicFilePath = $this->saveDir . '/' . $fileName;
 
         $jsonData = json_encode([
             'data' => $news,
@@ -33,9 +39,9 @@ readonly class FileReportStorage implements ReportStorageInterface
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
         // Записываем данные в файл
-        $this->filesystem->dumpFile($cacheFile, $jsonData);
+        $this->filesystem->dumpFile($fullFilePath, $jsonData);
 
         // Возвращаем путь к сохраненному файлу
-        return $cacheFile;
+        return $publicFilePath;
     }
 }
