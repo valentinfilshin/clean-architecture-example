@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Application\UseCase\CreateNewsReport;
 
 use App\Application\ReportStorage\ReportStorageInterface;
+use App\Application\UseCase\CreateNewsReport\Input\CreateNewsReportRequest;
 use App\Application\UseCase\CreateNewsReport\Output\CreateNewsReportDTO;
+use App\Application\UseCase\CreateNewsReport\Output\CreateNewsReportResponse;
 use App\Domain\Repository\NewsRepositoryInterface;
 
 readonly class CreateNewsReportUseCase
@@ -16,11 +18,10 @@ readonly class CreateNewsReportUseCase
     ) {
     }
 
-    public function __invoke(): void
+    public function __invoke(CreateNewsReportRequest $request): CreateNewsReportResponse
     {
-        // TODO принять список ID
         $newsList = [];
-        $news = $this->newsRepository->findAll();
+        $news = $this->newsRepository->findByIds($request->newsIds);
 
         foreach ($news as $item) {
             $newsList[] = new CreateNewsReportDTO(
@@ -29,7 +30,10 @@ readonly class CreateNewsReportUseCase
             );
         }
 
-        // TODO return DTO
-        $this->reportStorage->save($newsList);
+        $url = $this->reportStorage->save($newsList);
+
+        return new CreateNewsReportResponse(
+            $url
+        );
     }
 }
