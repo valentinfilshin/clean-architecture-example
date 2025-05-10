@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\UrlMetadataFetcher;
 
+use App\Application\UrlMetadataFetcher\Output\UrlMetadataFetcherDTO;
 use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -14,7 +15,7 @@ readonly class UrlMetadataFetcher implements UrlMetadataFetcherInterface
     ) {
     }
 
-    public function fetchTitle(string $url): ?string
+    public function fetchTitle(string $url): UrlMetadataFetcherDTO
     {
         $response = $this->httpClient->request('GET', $url, [
             'headers' => [
@@ -41,6 +42,7 @@ readonly class UrlMetadataFetcher implements UrlMetadataFetcherInterface
 
         $titleTags = $doc->getElementsByTagName('title');
 
-        return $titleTags->count() > 0 ? trim($titleTags->item(0)->textContent) : null;
+        return $titleTags->count() > 0 ? new UrlMetadataFetcherDTO($titleTags->item(0)->textContent)
+            : new UrlMetadataFetcherDTO(null);
     }
 }

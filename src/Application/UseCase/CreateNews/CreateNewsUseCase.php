@@ -25,7 +25,7 @@ readonly class CreateNewsUseCase
         $title  = $this->urlMetadataFetcher->fetchTitle($request->url);
 
         // Создать новость
-        $news = $this->newsFactory->create($request->url, $title);
+        $news = $this->newsFactory->create($request->url, $title->title);
 
         // Сохранить новость
         $this->newsRepository->save($news);
