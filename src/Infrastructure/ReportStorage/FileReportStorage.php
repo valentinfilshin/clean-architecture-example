@@ -29,17 +29,23 @@ readonly class FileReportStorage implements ReportStorageInterface
         }
 
         // Используем статический метод Uuid::v4() для генерации UUID
-        $fileName = Uuid::v4()->toRfc4122() . '.json';
+        $fileName = Uuid::v4()->toRfc4122() . '.html';
         $fullFilePath = $this->baseDir . $this->saveDir . '/' . $fileName;
         $publicFilePath = $this->saveDir . '/' . $fileName;
 
-        $jsonData = json_encode([
-            'data' => $news,
-            'cached_at' => time()
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        // Формируем HTML-код
+        $htmlContent = "<ul>\n";
+        foreach ($news as $item) {
+            $htmlContent .= sprintf(
+                (string)"<li><a href=\"%s\">%s</a></li>",
+                $item->url ?? '#',
+                $item->title ?? 'Без названия'
+            );
+        }
+        $htmlContent .= "</ul>";
 
         // Записываем данные в файл
-        $this->filesystem->dumpFile($fullFilePath, $jsonData);
+        $this->filesystem->dumpFile($fullFilePath, $htmlContent);
 
         // Возвращаем путь к сохраненному файлу
         return $publicFilePath;
