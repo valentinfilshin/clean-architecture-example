@@ -48,3 +48,8 @@ RUN pecl channel-update pecl.php.net \
     && rm -rf /tmp/pear \
     && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini \
     && echo "extension=event.so" > /usr/local/etc/php/conf.d/event.ini
+
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug \
+  && echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini \
+  && echo "xdebug.mode=coverage" > /usr/local/etc/php/conf.d/xdebugcoverage.ini
