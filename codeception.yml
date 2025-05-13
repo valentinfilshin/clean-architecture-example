@@ -9,3 +9,9 @@ actor_suffix: Tester
 extensions:
   enabled:
     - 'Codeception\Extension\RunFailed'
+coverage:
+  enabled: true
+  include:
+    - src/*
+  c3_url: http://your-app-url/
+  show_uncovered: true
