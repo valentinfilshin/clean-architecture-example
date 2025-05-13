@@ -37,6 +37,7 @@ class CreateNewsReportUseCaseTest extends TestCase
         // Подготовка тестовых данных
         $newsIds = [1, 2];
         $reportUrl = 'https://example.com/reports/123';
+        $reportUrlResponse = new CreateNewsReportResponse($reportUrl);
 
         // Создаем запрос
         $request = new CreateNewsReportRequest($newsIds);
@@ -101,6 +102,7 @@ class CreateNewsReportUseCaseTest extends TestCase
         // Подготовка тестовых данных
         $newsIds = [];
         $reportUrl = 'https://example.com/reports/empty';
+        $reportUrlResponse = new CreateNewsReportResponse($reportUrl);
 
         // Создаем запрос
         $request = new CreateNewsReportRequest($newsIds);

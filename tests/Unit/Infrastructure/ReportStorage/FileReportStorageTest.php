@@ -63,7 +63,7 @@ class FileReportStorageTest extends TestCase
         $result = $this->fileReportStorage->save($news);
 
         // Assert
-        $this->assertMatchesRegularExpression('#^' . preg_quote($this->saveDir . '/', '#') . '[0-9a-f\-]+\.html$#', $result);
+        $this->assertMatchesRegularExpression('#^' . preg_quote($this->saveDir . '/', '#') . '[0-9a-f\-]+\.html$#', $result->url);
     }
 
     public function testSaveDoesNotCreateDirectoriesIfTheyExist(): void
@@ -93,7 +93,7 @@ class FileReportStorageTest extends TestCase
         $result = $this->fileReportStorage->save($news);
 
         // Assert
-        $this->assertMatchesRegularExpression('#^' . preg_quote($this->saveDir . '/', '#') . '[0-9a-f\-]+\.html$#', $result);
+        $this->assertMatchesRegularExpression('#^' . preg_quote($this->saveDir . '/', '#') . '[0-9a-f\-]+\.html$#', $result->url);
     }
 
     public function testSaveWithMultipleNewsItems(): void

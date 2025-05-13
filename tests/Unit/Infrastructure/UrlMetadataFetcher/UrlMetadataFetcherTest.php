@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Infrastructure\UrlMetadataFetcher;
 
+use App\Application\UrlMetadataFetcher\Input\UrlMetadataFetcherRequest;
 use App\Application\UrlMetadataFetcher\Output\UrlMetadataFetcherDTO;
 use App\Infrastructure\UrlMetadataFetcher\UrlMetadataFetcher;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -26,6 +27,7 @@ class UrlMetadataFetcherTest extends TestCase
     {
         // Arrange
         $url = 'https://example.com';
+        $urlMetadataFetcherDTO = new UrlMetadataFetcherRequest($url);
         $expectedTitle = 'Пример заголовка страницы';
         $htmlContent = '<html><head><title>' . $expectedTitle . '</title></head><body></body></html>';
 
@@ -45,7 +47,7 @@ class UrlMetadataFetcherTest extends TestCase
             ->willReturn($response);
 
         // Act
-        $result = $this->urlMetadataFetcher->fetchTitle($url);
+        $result = $this->urlMetadataFetcher->fetchTitle($urlMetadataFetcherDTO);
 
         // Assert
         $this->assertInstanceOf(UrlMetadataFetcherDTO::class, $result);
@@ -56,6 +58,7 @@ class UrlMetadataFetcherTest extends TestCase
     {
         // Arrange
         $url = 'https://example.com';
+        $urlMetadataFetcherDTO = new UrlMetadataFetcherRequest($url);
         $htmlContent = '<html><head></head><body>Контент без заголовка</body></html>';
 
         $response = $this->createMock(ResponseInterface::class);
@@ -69,7 +72,7 @@ class UrlMetadataFetcherTest extends TestCase
             ->willReturn($response);
 
         // Act
-        $result = $this->urlMetadataFetcher->fetchTitle($url);
+        $result = $this->urlMetadataFetcher->fetchTitle($urlMetadataFetcherDTO);
 
         // Assert
         $this->assertInstanceOf(UrlMetadataFetcherDTO::class, $result);
@@ -80,6 +83,8 @@ class UrlMetadataFetcherTest extends TestCase
     {
         // Arrange
         $url = 'https://example.com';
+        $urlMetadataFetcherDTO = new UrlMetadataFetcherRequest($url);
+
         $expectedTitle = 'Заголовок с кириллицей и символами типа €£¥®©';
         $htmlContent = '<html><head><title>' . $expectedTitle . '</title></head><body></body></html>';
 
@@ -94,7 +99,7 @@ class UrlMetadataFetcherTest extends TestCase
             ->willReturn($response);
 
         // Act
-        $result = $this->urlMetadataFetcher->fetchTitle($url);
+        $result = $this->urlMetadataFetcher->fetchTitle($urlMetadataFetcherDTO);
 
         // Assert
         $this->assertInstanceOf(UrlMetadataFetcherDTO::class, $result);
