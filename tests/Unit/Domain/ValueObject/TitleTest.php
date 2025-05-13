@@ -10,7 +10,7 @@ class TitleTest extends TestCase
     public function testCreateValidTitle(): void
     {
         $title = new Title('Заголовок новости');
-        $this->assertEquals('Заголовок новости', $title->getValue());
+        $this->assertEquals('Заголовок новости', $title->title);
     }
 
     public function testEmptyTitleThrowsException(): void
