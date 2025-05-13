@@ -2,6 +2,7 @@
 
 namespace App\Tests\Unit\Applicaion\UseCases\CreateNews;
 
+use App\Application\UrlMetadataFetcher\Input\UrlMetadataFetcherRequest;
 use App\Application\UrlMetadataFetcher\Output\UrlMetadataFetcherDTO;
 use App\Application\UseCase\CreateNews\CreateNewsUseCase;
 use App\Application\UseCase\CreateNews\Input\CreateNewsRequest;
@@ -55,7 +56,7 @@ class CreateNewsUseCaseTest extends TestCase
         $this->urlMetadataFetcher
             ->expects($this->once())
             ->method('fetchTitle')
-            ->with($url)
+            ->with(new UrlMetadataFetcherRequest($url))
             ->willReturn($title);
 
         // Настраиваем ожидания для newsFactory
