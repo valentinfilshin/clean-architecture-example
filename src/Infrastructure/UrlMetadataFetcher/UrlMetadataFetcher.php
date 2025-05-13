@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\UrlMetadataFetcher;
 
+use App\Application\UrlMetadataFetcher\Input\UrlMetadataFetcherRequest;
 use App\Application\UrlMetadataFetcher\Output\UrlMetadataFetcherDTO;
 use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -15,9 +16,9 @@ readonly class UrlMetadataFetcher implements UrlMetadataFetcherInterface
     ) {
     }
 
-    public function fetchTitle(string $url): UrlMetadataFetcherDTO
+    public function fetchTitle(UrlMetadataFetcherRequest $request): UrlMetadataFetcherDTO
     {
-        $response = $this->httpClient->request('GET', $url, [
+        $response = $this->httpClient->request('GET', $request->url, [
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' .
                 ' (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',

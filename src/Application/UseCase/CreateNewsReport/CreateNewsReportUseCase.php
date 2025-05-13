@@ -30,10 +30,10 @@ readonly class CreateNewsReportUseCase
             );
         }
 
-        $url = $this->reportStorage->save($newsList);
+        $reportStorageResponse = $this->reportStorage->save($newsList);
 
         return new CreateNewsReportResponse(
-            $url
+            $reportStorageResponse->url
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\UseCase\CreateNews;
 
+use App\Application\UrlMetadataFetcher\Input\UrlMetadataFetcherRequest;
 use App\Application\UrlMetadataFetcher\UrlMetadataFetcherInterface;
 use App\Application\UseCase\CreateNews\Input\CreateNewsRequest;
 use App\Application\UseCase\CreateNews\Output\CreateNewsResponse;
@@ -21,8 +22,9 @@ readonly class CreateNewsUseCase
 
     public function __invoke(CreateNewsRequest $request): CreateNewsResponse
     {
+        $titleRequest = new UrlMetadataFetcherRequest($request->url);
         // Получить Title
-        $title  = $this->urlMetadataFetcher->fetchTitle($request->url);
+        $title  = $this->urlMetadataFetcher->fetchTitle($titleRequest);
 
         // Создать новость
         $news = $this->newsFactory->create($request->url, $title->title);

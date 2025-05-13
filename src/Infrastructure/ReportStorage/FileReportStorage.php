@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\ReportStorage;
 
+use App\Application\ReportStorage\Output\ReportStorageResponse;
 use App\Application\ReportStorage\ReportStorageInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Uid\Uuid;
@@ -17,7 +18,7 @@ readonly class FileReportStorage implements ReportStorageInterface
     ) {
     }
 
-    public function save(array $news): string
+    public function save(array $news): ReportStorageResponse
     {
         // Создаем директорию, если она не существует
         if (!$this->filesystem->exists($this->baseDir)) {
@@ -48,6 +49,6 @@ readonly class FileReportStorage implements ReportStorageInterface
         $this->filesystem->dumpFile($fullFilePath, $htmlContent);
 
         // Возвращаем путь к сохраненному файлу
-        return $publicFilePath;
+        return new ReportStorageResponse($publicFilePath);
     }
 }
