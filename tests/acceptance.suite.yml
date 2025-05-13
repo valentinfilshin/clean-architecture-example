@@ -1,0 +1,9 @@
+actor: AcceptanceTester
+modules:
+  enabled:
+    - PhpBrowser:
+        url: 'http://nginx:80'
+    - REST:
+        depends: PhpBrowser
+        part: Json
+    - Asserts
