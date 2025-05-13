@@ -20,3 +20,14 @@ composer install
 ```
 http://localhost:7777
 ```
+
+Для запуска тестов
+Codeception
+```shell
+./vendor/bin/codecept run --coverage --coverage-html
+```
+
+PhpUnit
+```shell
+./vendor/bin/phpunit --coverage-html var/coverage
+```
