@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Tests\Unit\Applicaion\UseCases;
+namespace App\Tests\Unit\Applicaion\UseCases\CreateNewsReport;
 
+use App\Application\ReportStorage\Output\ReportStorageResponse;
 use App\Application\ReportStorage\ReportStorageInterface;
 use App\Application\UseCase\CreateNewsReport\CreateNewsReportUseCase;
 use App\Application\UseCase\CreateNewsReport\Input\CreateNewsReportRequest;
@@ -37,7 +38,7 @@ class CreateNewsReportUseCaseTest extends TestCase
         // Подготовка тестовых данных
         $newsIds = [1, 2];
         $reportUrl = 'https://example.com/reports/123';
-        $reportUrlResponse = new CreateNewsReportResponse($reportUrl);
+        $reportUrlResponse = new ReportStorageResponse($reportUrl);
 
         // Создаем запрос
         $request = new CreateNewsReportRequest($newsIds);
@@ -87,7 +88,7 @@ class CreateNewsReportUseCaseTest extends TestCase
                     && $dtos[1]->url === $expectedDTOs[1]->url
                     && $dtos[1]->title === $expectedDTOs[1]->title;
             }))
-            ->willReturn($reportUrl);
+            ->willReturn($reportUrlResponse);
 
         // Вызываем тестируемый метод
         $response = ($this->useCase)($request);
@@ -102,7 +103,7 @@ class CreateNewsReportUseCaseTest extends TestCase
         // Подготовка тестовых данных
         $newsIds = [];
         $reportUrl = 'https://example.com/reports/empty';
-        $reportUrlResponse = new CreateNewsReportResponse($reportUrl);
+        $reportUrlResponse = new ReportStorageResponse($reportUrl);
 
         // Создаем запрос
         $request = new CreateNewsReportRequest($newsIds);
@@ -119,7 +120,7 @@ class CreateNewsReportUseCaseTest extends TestCase
             ->expects($this->once())
             ->method('save')
             ->with([])
-            ->willReturn($reportUrl);
+            ->willReturn($reportUrlResponse);
 
         // Вызываем тестируемый метод
         $response = ($this->useCase)($request);
