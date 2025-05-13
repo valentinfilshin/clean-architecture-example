@@ -40,9 +40,8 @@ class FileNewsRepository implements NewsRepositoryInterface
     public function findByIds(array $newsIds): iterable
     {
         $result = [];
-
         foreach ($newsIds as $newsId) {
-            $news = $this->findById($newsId);
+            $news = $this->findById((int)$newsId);
             if ($news !== null) {
                 $result[] = $news;
             }
